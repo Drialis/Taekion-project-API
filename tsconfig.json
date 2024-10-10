@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",  // Aquí definimos el directorio de salida
+    "rootDir": "./src"   // Aquí definimos la raíz del código fuente
+  },
+  "include": ["src/**/*"], // Asegúrate de incluir todo el código fuente dentro de `src`
+  "exclude": ["node_modules", "dist"]  // Excluye la carpeta de salida y node_modules
+}
