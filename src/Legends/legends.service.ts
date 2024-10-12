@@ -1,17 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { LegendsType } from './legends.types';
+import { LegendsDetailsType } from './legends.types';
+import { CreateLegendDto } from './legends.dto';
+import { writeFileSync } from 'fs';
 
 @Injectable()
 export class LegendsService {
-  getHello(): string {
-    return 'Hello World!';
+  private legends: LegendsDetailsType[] = [];
+
+  getAllLegends(): LegendsDetailsType[] {
+    return this.legends;
   }
 
-  getAllLegends(): LegendsType {
-    return this.getAllLegends
+  incorporateLegend(createLegendDto: CreateLegendDto): 
+  LegendsDetailsType {
+    const newLegend: LegendsDetailsType = {
+      ...createLegendDto,
+    };
+
+    this.legends.push(newLegend);
+
+    return newLegend;
   }
 
-  incorporateLegend(): LegendsType{
-    return( )
+  private writeJsonFile(data: LegendsDetailsType[]){
+    try{
+        writeFileSync('response.json', JSON.stringify(data))
+    } catch(err) {
+        console.error('no encuentro leyendas por aquí', err)
+    }
   }
 }

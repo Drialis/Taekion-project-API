@@ -1,28 +1,36 @@
-import { Controller, Get, Post, Body, Res } from '@nestjs/common';
-import { LegendsService } from '../Legends/legends.service';
-import { LegendsType } from './legends.types';
+import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import {Response} from 'express'
+import { LegendsService } from './legends.service';
+import { CreateLegendDto } from './legends.dto';
 
-@Controller('blog')
+@Controller('legends')
 export class LegendsController {
-  constructor(private readonly blogService: LegendsService) {}
-
-  @Get()
-  getAllLegends() {
-    return this.blogService.getAllLegends();
-  }
+  constructor(private readonly legendsService: LegendsService) {}
 
   @Post()
-  incorporateLegend(
-    @Res() res:Response,
-    @Body() body: LegendsType): Promise<Response> {
-    try{
-        const{
-            name,
-        } = body
+  async addLegend(
+    @Res() res: Response,
+    @Body() createLegendDto: CreateLegendDto
+    ): Promise<Response> {
+        try{
+            const {
+                name,
+                mainText,
+                paragraphs,
+                images,
+                isCompetitor,
+                dateDan
+            } = createLegendDto
+
+            const createLegendResponse = 
+            this.legendsService.incorporateLegend(createLegendDto)
+      return res.status(HttpStatus.CREATED).json(createLegendResponse);
     } catch (error) {
-        console.log('no estás metiendo bien los datos')
-        return res.status(500).send('controller error')
-    }
+      // Manejo de errores
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'Error al añadir la leyenda',
+        error: error.message,
+      });
+        }
   }
 }
-
