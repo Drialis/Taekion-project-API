@@ -1,10 +1,10 @@
-import { ImageType } from "./legends.types"
+import { Competitor, ImageType } from "./legends.types"
 
 export class CreateLegendDto {
-  name: string
-  mainText: string
-  paragraphs: string[]
-  images: ImageType[]
-  isCompetitor: boolean
-  dateDan: Date
+  name: string = ''
+  mainText: string = ''
+  paragraphs: string[] = []
+  images: ImageType[] = []
+  isCompetitor?: Competitor
+  dateDan: number = 1980
 }

@@ -3,8 +3,8 @@ export interface LegendsDetailsType {
     mainText: string,
     paragraphs: string[],
     images: ImageType[]
-    isCompetitor: boolean
-    dateDan: Date
+    isCompetitor?: Competitor
+    dateDan: number
 }
 
 export interface LegendsCardType extends Pick
@@ -20,4 +20,9 @@ export interface LegendsCardType extends Pick
 export interface ImageType{
     url: string
     alt: string
+}
+
+export interface Competitor {
+    kiorugui: boolean
+    poomsae: boolean
 }

@@ -1,5 +1,5 @@
+import { Response } from 'express'
 import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
-import {Response} from 'express'
 import { LegendsService } from './legends.service';
 import { CreateLegendDto } from './legends.dto';
 
@@ -25,8 +25,7 @@ export class LegendsController {
             const createLegendResponse = 
             this.legendsService.incorporateLegend(createLegendDto)
       return res.status(HttpStatus.CREATED).json(createLegendResponse);
-    } catch (error) {
-      // Manejo de errores
+    } catch (error: any) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error al añadir la leyenda',
         error: error.message,
