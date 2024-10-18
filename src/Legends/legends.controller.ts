@@ -28,7 +28,7 @@ export class LegendsController {
     } catch (error: any) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message: 'Error al añadir la leyenda',
-        error: error.message,
+        error: error.message
       });
         }
   }

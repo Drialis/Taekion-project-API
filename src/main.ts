@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core';
-import { LegendsModule } from '../src/Legends/legends.module';
 import 'reflect-metadata';
+import { AppModule } from './app.module';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create([LegendsModule]);
+  const app = await NestFactory.create(AppModule);
   await app.listen(3000);
 }
 bootstrap();

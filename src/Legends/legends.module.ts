@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { LegendsService } from '../Legends/legends.service';
-import {LegendsController} from '../Legends/legends.controller'
+import { LegendsService } from './legends.service';
+import { LegendsController } from './legends.controller'
 
 @Module({
   imports: [],
