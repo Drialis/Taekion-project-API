@@ -1,11 +1,26 @@
 import { Response } from 'express'
-import { Controller, Post, Body, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get } from '@nestjs/common';
 import { LegendsService } from './legends.service';
 import { CreateLegendDto } from './legends.dto';
 
 @Controller('legends')
 export class LegendsController {
   constructor(private readonly legendsService: LegendsService) {}
+
+  @Get()
+  async getAllLegends(
+    @Res() res: Response
+  ): Promise<Response>{
+    try{
+      const legends = this.legendsService.getAllLegends()
+      return res.status(HttpStatus.OK).json(legends)
+    } catch (error: any){
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+        message: 'No hay leyendas forjadas',
+        error: error.message
+      })
+    }
+  }
 
   @Post()
   async addLegend(

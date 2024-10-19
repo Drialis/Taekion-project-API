@@ -18,5 +18,25 @@
       "poomsae": false
     },
     "dateDan": "1981"
+  },
+  {
+    "name": "Miguel Ángel Santiago",
+    "mainText": "Maestro y competidor",
+    "paragraphs": [
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      "Nulla condimentum ligula vel libero consectetur, nec bibendum libero posuere.",
+      "Fusce ultricies ligula nec neque lacinia, in lobortis metus ultricies."
+    ],
+    "images": [
+      {
+        "url": "https://res.cloudinary.com/du8mlfcf9/image/upload/v1728852441/maestro_xetahl.jpg",
+        "alt": "Image 1"
+      }
+    ],
+    "isCompetitor": {
+      "kiorugui": true,
+      "poomsae": false
+    },
+    "dateDan": "1981"
   }
 ]
