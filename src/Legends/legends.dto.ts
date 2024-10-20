@@ -1,4 +1,4 @@
-import { Competitor, ImageType } from "./legends.types"
+import { Competitor, ImageType } from "./legends.schema"
 
 export class CreateLegendDto {
   name: string = ''

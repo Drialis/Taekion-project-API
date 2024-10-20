@@ -1,4 +1,4 @@
-import { ImageType } from "../Legends/legends.types"
+import { ImageType } from "../Legends/legends.schema"
 
 export interface NewCardType extends Pick<NewDetailsType, 'title' | 'mainText'> {
     image: NewDetailsType['images'][0]

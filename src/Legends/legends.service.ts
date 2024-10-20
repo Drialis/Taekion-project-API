@@ -1,44 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { LegendsDetailsType } from './legends.types';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Legend } from './legends.schema';
 import { CreateLegendDto } from './legends.dto';
-import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { writeFileSync } from 'fs';
 
 @Injectable()
 export class LegendsService {
-  private legends: LegendsDetailsType[] = [];
 
-  constructor() {
-    // Cargar leyendas desde el archivo al iniciar el servicio, si el archivo existe.
-    if (existsSync('response.json')) {
-      const data = readFileSync('response.json', 'utf-8');
-      this.legends = JSON.parse(data) || [];
-    }
-  }
+  constructor(
+      @InjectModel('Legend') private legendModel: Model<Legend>
+    ) {}
+      
 
   // Obtener todas las leyendas desde el archivo
-  getAllLegends(): LegendsDetailsType[] {
-    return this.legends;
-  }
+  async getAllLegends(): Promise<Legend[]>{
+    const legends =  await this.legendModel.find().exec()
+    this.writeJsonFile(legends)
+    return legends
+  } 
 
   // Incorporar una nueva leyenda
-  incorporateLegend(createLegendDto: CreateLegendDto): LegendsDetailsType {
-    const newLegend: LegendsDetailsType = {
-      ...createLegendDto,
+  async incorporateLegend(createLegendDto: CreateLegendDto): Promise<Legend>{
+    const newLegend = new this.legendModel(createLegendDto)
+    const savedLegend = await newLegend.save()
+    const allLegends = await this.legendModel.find().exec()
+    this.writeJsonFile(allLegends)
+    return savedLegend
     };
 
-    // Agregar la nueva leyenda al array
-    this.legends.push(newLegend);
 
-    // Guardar el array actualizado en el archivo response.json
-    this.writeJsonFile();
-
-    return newLegend;
-  }
-
-  // Método para escribir las leyendas en un archivo JSON
-  private writeJsonFile() {
+    // Método para escribir las leyendas en un archivo JSON
+  private writeJsonFile(legends: Legend[]) {
     try {
-      writeFileSync('response.json', JSON.stringify(this.legends, null, 2)); // Con formato legible
+      writeFileSync('response.json', JSON.stringify(legends, null, 2)); // Formato legible
     } catch (err) {
       console.error('Error al escribir el archivo JSON', err);
     }
